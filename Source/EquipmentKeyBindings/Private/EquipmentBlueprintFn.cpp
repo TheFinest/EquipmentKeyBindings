@@ -1,5 +1,7 @@
 #include "EquipmentBlueprintFn.h"
+#include "Equipment/FGEquipment.h"
 #include "FGCharacterPlayer.h"
+#include "FGInventoryComponentEquipment.h"
 
 DEFINE_LOG_CATEGORY(EquipmentKeyBindings);
 
@@ -30,4 +32,30 @@ void UEquipmentBlueprintFn::MultiCycleEquipment(AFGCharacterPlayer* CharacterPla
         cycles = cycles - dir;
         UE_LOG(EquipmentKeyBindings, Verbose, TEXT("[EquipmentBlueprintFn] Cycles updated to: %d"), cycles);
     }
+}
+
+void UEquipmentBlueprintFn::SelectArmEquipmentByIndex(AFGCharacterPlayer* CharacterPlayer, int32 SlotIndex)
+{
+    if (!IsValid(CharacterPlayer))
+    {
+        UE_LOG(EquipmentKeyBindings, Warning, TEXT("[EquipmentBlueprintFn] SelectArmEquipmentByIndex called with invalid character"));
+        return;
+    }
+
+    UFGInventoryComponentEquipment* ArmSlot = CharacterPlayer->GetEquipmentSlot(EEquipmentSlot::ES_ARMS);
+    if (!IsValid(ArmSlot))
+    {
+        UE_LOG(EquipmentKeyBindings, Warning, TEXT("[EquipmentBlueprintFn] Failed to find arm equipment slot"));
+        return;
+    }
+
+    const int32 NumSlots = ArmSlot->GetSizeLinear();
+    if (SlotIndex < 0 || SlotIndex >= NumSlots)
+    {
+        UE_LOG(EquipmentKeyBindings, Warning, TEXT("[EquipmentBlueprintFn] Slot index %d out of range [0, %d)"), SlotIndex, NumSlots);
+        return;
+    }
+
+    UE_LOG(EquipmentKeyBindings, Log, TEXT("[EquipmentBlueprintFn] Selecting arm equipment index %d"), SlotIndex);
+    ArmSlot->Server_SetActiveEquipmentIndex(SlotIndex);
 }

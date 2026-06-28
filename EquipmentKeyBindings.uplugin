@@ -1,11 +1,11 @@
 {
 	"FileVersion": 3,
-	"Version": 1,
-	"VersionName": "1.3.3",
-	"SemVersion": "1.3.3",
-	"GameVersion": ">=416835",
+	"Version": 2,
+	"VersionName": "1.3.4",
+	"SemVersion": "1.3.4",
+	"GameVersion": ">=491125",
 	"FriendlyName": "Equipment Key Bindings",
-	"Description": "This mod allows you to bind the hand equipments to specific keys",
+	"Description": "Client-side mod that binds arm equipment slots to specific keys",
 	"Category": "Modding",
 	"CreatedBy": "Vanzin",
 	"CreatedByURL": "http://www.github.com/pvm",
@@ -16,6 +16,8 @@
 	"IsBetaVersion": false,
 	"IsExperimentalVersion": false,
 	"Installed": false,
+	"RequiredOnRemote": false,
+	"BuiltInInitialFeatureState": "Active",
 	"Modules": [
 		{
 			"Name": "EquipmentKeyBindings",
@@ -27,7 +29,7 @@
 		{
 			"Name": "SML",
 			"Enabled": true,
-			"SemVersion": "^3.11.1"
+			"SemVersion": "^3.12.0"
 		}
 	]
 }
